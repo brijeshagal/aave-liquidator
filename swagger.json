@@ -1,0 +1,180 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Aave Liquidator API",
+      "description": "API for fetching user addresses and liquidation data from Aave Liquidator service.",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://aave-liquidator-production.up.railway.app",
+        "description": "Production Server"
+      }
+    ],
+    "paths": {
+      "/getUserAddresses": {
+        "get": {
+          "summary": "Fetch user addresses",
+          "description": "Returns a list of Ethereum addresses of users involved in Aave liquidations.",
+          "tags": ["Users"],
+          "responses": {
+            "200": {
+              "description": "A list of Ethereum addresses.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "0x7b26FB7E5be7CBA1635df9B3F6CB8428E62170de"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/userData": {
+        "get": {
+          "summary": "Fetch liquidation data for all users",
+          "description": "Retrieves liquidation simulation data for all Ethereum addresses.",
+          "tags": ["Users"],
+          "responses": {
+            "200": {
+              "description": "List of users with liquidation simulation data.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/UserData"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/userData/{address}": {
+        "get": {
+          "summary": "Fetch liquidation data for a specific user",
+          "description": "Retrieves liquidation simulation data for a given Ethereum address.",
+          "tags": ["Users"],
+          "parameters": [
+            {
+              "name": "address",
+              "in": "path",
+              "required": true,
+              "description": "Ethereum address of the user.",
+              "schema": {
+                "type": "string",
+                "example": "0x7b26FB7E5be7CBA1635df9B3F6CB8428E62170de"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Liquidation simulation data for the given address.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserData"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid address format."
+            },
+            "404": {
+              "description": "Address not found."
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "UserData": {
+          "type": "object",
+          "properties": {
+            "beforeSimulation": {
+              "type": "object",
+              "properties": {
+                "totalCollateralBase": {
+                  "type": "string",
+                  "example": "34373993390565"
+                },
+                "totalDebtBase": {
+                  "type": "string",
+                  "example": "20640967268205"
+                },
+                "healthFactor": {
+                  "type": "string",
+                  "example": "1298956318095679369"
+                }
+              }
+            },
+            "afterSimulation": {
+              "type": "object",
+              "properties": {
+                "totalCollateralBase": {
+                  "type": "string",
+                  "example": "18984722025343"
+                },
+                "totalDebtBase": {
+                  "type": "string",
+                  "example": "20640967268205"
+                },
+                "healthFactor": {
+                  "type": "string",
+                  "example": "717412269849297379"
+                }
+              }
+            },
+            "afterLiquidation": {
+              "type": "object",
+              "properties": {
+                "totalCollateralBase": {
+                  "type": "string",
+                  "example": "18984647353500"
+                },
+                "totalDebtBase": {
+                  "type": "string",
+                  "example": "20640896152205"
+                },
+                "healthFactor": {
+                  "type": "string",
+                  "example": "717411919837991468"
+                }
+              }
+            },
+            "_id": {
+              "type": "string",
+              "example": "6798c92b8ccf0f0d3e59248e"
+            },
+            "address": {
+              "type": "string",
+              "example": "0x7b26FB7E5be7CBA1635df9B3F6CB8428E62170de"
+            },
+            "__v": {
+              "type": "integer",
+              "example": 0
+            }
+          }
+        }
+      }
+    }
+  }
+  
