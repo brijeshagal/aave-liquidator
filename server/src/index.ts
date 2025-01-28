@@ -16,7 +16,6 @@ mongoose
   .connect(process.env.MONGO_URL as string)
   .then(() => {
     console.log("✅ MongoDB Connected");
-    addMultipleUsers();
   })
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
