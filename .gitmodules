@@ -1,0 +1,3 @@
+[submodule "aave-liquidator-foundry"]
+	path = aave-liquidator-foundry
+	url = https://github.com/brijeshagal/aave-liquidator-foundry.git
