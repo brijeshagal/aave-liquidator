@@ -1,17 +1,19 @@
 import dotenv from "dotenv";
 import express from "express";
+import fs from "fs";
 import helmet from "helmet";
 import mongoose from "mongoose";
 import { getAddress } from "viem";
 import userSchema from "./schema/user";
-import { addMultipleUsers } from "./uploadToDB";
+import { swaggerUi } from "./swagger";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
 
 app.use(helmet());
 app.use(express.json());
-
+cors();
 mongoose
   .connect(process.env.MONGO_URL as string)
   .then(() => {
@@ -21,6 +23,15 @@ mongoose
 
 const UserData = mongoose.model("UserDetails", userSchema);
 
+// Load the Swagger JSON file
+const swaggerDocument = JSON.parse(fs.readFileSync("./swagger.json", "utf8"));
+
+// Serve Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.get("/", (req, res) => {
+  res.redirect("/api-docs");
+});
 app.get("/getUserAddresses", async (req, res) => {
   try {
     const users = await UserData.find({}, "address");
