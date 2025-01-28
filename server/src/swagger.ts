@@ -12,7 +12,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://aave-liquidator-production.up.railway.app",
+        url: "https://aave-liquidator.onrender.com",
         description: "Production Server",
       },
     ],

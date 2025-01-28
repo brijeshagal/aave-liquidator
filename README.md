@@ -37,14 +37,14 @@ $ forge test --fork-url FORK_URL  -vvv
 Get all user addresses
 
 ```bash
-GET https://aave-liquidator-production.up.railway.app/getUserAddresses
+GET https://aave-liquidator.onrender.com/getUserAddresses
 ```
 
-GET https://aave-liquidator-production.up.railway.app/userData/:address
+GET https://aave-liquidator.onrender.com/userData/:address
 
 Request
 ```bash
-GET https://aave-liquidator-production.up.railway.app/userData/0x64a164b1a3c68Cb3849045d6FAc0AE9413f3F011
+GET https://aave-liquidator.onrender.com/userData/0x64a164b1a3c68Cb3849045d6FAc0AE9413f3F011
 ```
 
 Response
@@ -69,7 +69,7 @@ Response
 ```
 
 ```bash
-GET https://aave-liquidator-production.up.railway.app/userData
+GET https://aave-liquidator.onrender.com/userData
 ```
 
 Gets data for all the users.
