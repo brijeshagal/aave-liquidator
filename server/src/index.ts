@@ -24,7 +24,7 @@ mongoose
 const UserData = mongoose.model("UserDetails", userSchema);
 
 // Load the Swagger JSON file
-const swaggerDocument = JSON.parse(fs.readFileSync("./swagger.json", "utf8"));
+const swaggerDocument = JSON.parse(fs.readFileSync("swagger.json", "utf8"));
 
 // Serve Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
